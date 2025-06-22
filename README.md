@@ -1,2 +1,2 @@
-q# truck-service-time
+# truck-service-time
 سبحان الله وبحمد 
