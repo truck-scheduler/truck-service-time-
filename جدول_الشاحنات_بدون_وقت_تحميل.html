@@ -1,0 +1,308 @@
+
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar">
+<head>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const overlay = document.createElement("div");
+    overlay.style.cssText = `
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7); display: flex;
+      align-items: center; justify-content: center; z-index: 9999;
+    `;
+
+    const box = document.createElement("div");
+    box.style.cssText = `
+      background: #fff; padding: 30px; border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2); text-align: center;
+    `;
+
+    const title = document.createElement("h3");
+    title.innerText = "🔐 أدخل كلمة المرور";
+    title.style.marginBottom = "15px";
+
+    const input = document.createElement("input");
+    input.type = "password";
+    input.style.padding = "10px";
+    input.style.borderRadius = "8px";
+    input.style.border = "1px solid #ccc";
+    input.style.width = "100%";
+    input.placeholder = "كلمة المرور";
+
+    const button = document.createElement("button");
+    button.innerText = "دخول";
+    button.style.cssText = `
+      margin-top: 15px; padding: 10px 20px; border: none;
+      border-radius: 8px; background-color: #4CAF50; color: white;
+      cursor: pointer;
+    `;
+
+    button.onclick = () => {
+      if (input.value !== "Admin93") {
+        alert("❌ كلمة المرور غير صحيحة!");
+        window.location.href = "https://www.google.com";
+      } else {
+        document.body.removeChild(overlay);
+      }
+    };
+
+    box.appendChild(title);
+    box.appendChild(input);
+    box.appendChild(button);
+    overlay.appendChild(box);
+    document.body.appendChild(overlay);
+  });
+</script>
+
+<meta charset="utf-8"/>
+<title>جدول مواعيد الشاحنات</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to bottom, #f0f4f8, #d9e2ec);
+    padding: 20px;
+    direction: rtl;
+    margin: 0;
+  }
+  h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+  }
+  form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+  input, select, button {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  button[type="submit"] {
+    grid-column: span 2;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  button.sort {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    cursor: pointer;
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto 20px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+  }
+  th {
+    background-color: #4CAF50;
+    color: white;
+  }
+  .action-btn {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    margin: 2px;
+  }
+  .edit-btn {
+    background-color: orange;
+    color: white;
+    border: none;
+  }
+  .delete-btn {
+    background-color: red;
+    color: white;
+    border: none;
+  }
+  @media (max-width: 768px) {
+    form {
+      grid-template-columns: 1fr;
+    }
+    button[type="submit"] {
+      grid-column: span 1;
+    }
+  }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script></head>
+<body>
+
+<div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 30px;">
+  <img src="logo.png" alt="الشعار" style="height: 60px;" />
+  <h2 style="margin: 0;">نظام ترتيب مواعيد الشاحنات</h2>
+</div>
+
+<form id="truckForm">
+<input id="driver" placeholder="اسم السائق" required="" type="text"/>
+<input id="truckNumber" placeholder="رقم السيارة" required="" type="text"/>
+<input id="mobile" placeholder="رقم الموبايل" required="" type="text"/>
+<input id="code" placeholder="الكود" required="" type="text"/>
+<select id="flourType" required="">
+<option value="">اختر نوع الطحين</option>
+<option value="نادر">نادر</option>
+<option value="الاحسن">الاحسن</option>
+<option value="انوار">انوار</option>
+<option value="باهر">باهر</option>
+<option value="لطيف">لطيف</option>
+<option value="كوربشاق">كوربشاق</option>
+<option value="زعفران">زعفران</option>
+<option value="منار">منار</option>
+<option value="الاول">الاول</option>
+<option value="بازار">بازار</option>
+<option value="بيت اغا">بيت اغا</option>
+<option value="يوسف">يوسف</option>
+<option value="كريم">كريم</option>
+  <option value="وادي خضراء">وادي خضراء</option>
+  <option value="دور شرق">دور شرق</option>
+  <option value="الياس">الياس</option>
+  <option value="مبروك">مبروك</option>
+  <option value="نجوم">نجوم</option>
+<option value="شيخ">شيخ</option>
+<option value="فريمان">فريمان</option>
+</select>
+<select id="grade" required="">
+<option value="">اختر الدرجة</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="نخاله">نخاله</option>
+<option value="شوائب">شوائب</option>
+<option value="برغل">برغل</option>
+<option value="مشكل">مشكل</option>
+  <option value="الماس">الماس</option>
+</select>
+<input id="arrival" required="" type="datetime-local"/>
+
+<button type="submit">إضافة</button>
+</form>
+<button class="sort" onclick="sortByArrival()">🔃 ترتيب حسب موعد الوصول</button><button class="sort" onclick="exportToExcel()">📤 تصدير إلى Excel</button>
+<table id="truckTable">
+<thead>
+<tr>
+<th>اسم السائق</th>
+<th>رقم السيارة</th>
+<th>رقم الموبايل</th>
+<th>الكود</th>
+<th>نوع الطحين</th>
+<th>موعد الوصول</th>
+<th>التحكم</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+<script>
+  const form = document.getElementById("truckForm");
+  const tableBody = document.querySelector("#truckTable tbody");
+
+  let trucks = JSON.parse(localStorage.getItem("trucks")) || [];
+
+  function saveData() {
+    localStorage.setItem("trucks", JSON.stringify(trucks));
+  }
+
+  function renderTable() {
+    tableBody.innerHTML = "";
+    trucks.forEach((truck, index) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${truck.driver}</td>
+        <td>${truck.truckNumber}</td>
+        <td>${truck.mobile}</td>
+        <td>${truck.code}</td>
+        <td>${truck.flourType}</td>
+        <td>${truck.arrival}</td>
+        <td>
+          <button class="action-btn edit-btn" onclick="editTruck(${index})">✏️</button>
+          <button class="action-btn delete-btn" onclick="deleteTruck(${index})">🗑️</button>
+        </td>
+      `;
+      tableBody.appendChild(row);
+    });
+  }
+
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const truck = {
+      driver: document.getElementById("driver").value,
+      truckNumber: document.getElementById("truckNumber").value,
+      mobile: document.getElementById("mobile").value,
+      code: document.getElementById("code").value,
+      flourType: document.getElementById("flourType").value,
+      arrival: document.getElementById("arrival").value,
+      };
+    trucks.push(truck);
+    saveData();
+    renderTable();
+    form.reset();
+  });
+
+  function deleteTruck(index) {
+    if (confirm("هل أنت متأكد أنك تريد حذف هذا السطر؟")) {
+      trucks.splice(index, 1);
+      saveData();
+      renderTable();
+    }
+  }
+
+  function editTruck(index) {
+    const truck = trucks[index];
+    document.getElementById("driver").value = truck.driver;
+    document.getElementById("truckNumber").value = truck.truckNumber;
+    document.getElementById("mobile").value = truck.mobile;
+    document.getElementById("code").value = truck.code;
+    document.getElementById("flourType").value = truck.flourType;
+    document.getElementById("arrival").value = truck.arrival;
+    trucks.splice(index, 1);
+    saveData();
+    renderTable();
+  }
+
+  function sortByArrival() {
+    trucks.sort((a, b) => new Date(a.arrival) - new Date(b.arrival));
+    saveData();
+    renderTable();
+  }
+
+  renderTable();
+
+
+function exportToExcel() {
+  const table = document.getElementById("truckTable");
+  const wb = XLSX.utils.table_to_book(table, { sheet: "مواعيد الشاحنات" });
+  XLSX.writeFile(wb, "جدول_الشاحنات.xlsx");
+}
+</script>
+
+<footer style="position: fixed; bottom: 10px; left: 20px; color: #555; font-size: 14px;">
+  shevan MN
+</footer>
+</body>
+
+</html>
